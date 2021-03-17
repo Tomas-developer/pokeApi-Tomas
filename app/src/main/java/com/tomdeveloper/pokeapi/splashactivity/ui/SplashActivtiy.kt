@@ -2,7 +2,6 @@ package com.tomdeveloper.pokeapi.splashactivity.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import com.tomdeveloper.pokeapi.R
 import com.tomdeveloper.pokeapi.commons.BaseActivity
 import com.tomdeveloper.pokeapi.home_activity.HomeActivity
