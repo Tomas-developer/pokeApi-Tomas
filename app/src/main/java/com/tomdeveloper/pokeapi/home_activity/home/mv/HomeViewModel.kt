@@ -11,14 +11,12 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: PokemonRepository) : BaseViewModel() {
 
-    private lateinit var pokemon:List<PokemonDTO>
-    var pokemonList: MutableLiveData<List<PokemonDTO>> = MutableLiveData()
+    private var _pokemonList: MutableLiveData<List<PokemonDTO>> = MutableLiveData()
+    val pokemonList get() = _pokemonList
 
     fun getPokemon() {
         viewModelScope.launch(Dispatchers.IO) {
-           // pokemon = repository.getPokemon()
-            pokemonList.postValue(repository.getPokemon())
+            _pokemonList.postValue(repository.getPokemon())
         }
-
     }
 }

@@ -3,6 +3,7 @@ package com.tomdeveloper.pokeapi.home_activity.home.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ExpandableListView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,8 @@ import com.bumptech.glide.Glide
 import com.tomdeveloper.data.models.PokemonDTO
 import com.tomdeveloper.pokeapi.R
 
-class PokemonDtoAdapter(private val lista: MutableList<PokemonDTO>): RecyclerView.Adapter<PokemonDtoAdapter.MiViewHolder>() {
+class PokemonDtoAdapter(private val lista: MutableList<PokemonDTO>,
+                        private val itemPokemonClickListener: OnItemPokemonClickListener): RecyclerView.Adapter<PokemonDtoAdapter.MiViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MiViewHolder {
@@ -23,6 +25,9 @@ class PokemonDtoAdapter(private val lista: MutableList<PokemonDTO>): RecyclerVie
         Glide.with(holder.itemView.context)
             .load(lista[position].urlImage)
             .into(holder.pokePhoto)
+        holder.itemView.setOnClickListener {
+                itemPokemonClickListener.onItemPokemonClicked(lista[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -34,4 +39,8 @@ class PokemonDtoAdapter(private val lista: MutableList<PokemonDTO>): RecyclerVie
         val pokePhoto = itemView.findViewById<ImageView>(R.id.item_poke_img)
     }
 
+}
+
+interface OnItemPokemonClickListener {
+    fun onItemPokemonClicked(pokemonDTO: PokemonDTO)
 }

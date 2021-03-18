@@ -1,6 +1,5 @@
 package com.tomdeveloper.data.repositories
 
-import android.util.Log
 import com.tomdeveloper.data.commons.getIdPokemonFromUrlApi
 import com.tomdeveloper.data.models.PokemonDTO
 import com.tomdeveloper.data.remote.IPokemonApi
@@ -16,14 +15,19 @@ class PokemonRepository(private val remoteApi: IPokemonApi) {
         if(!datos.isNullOrEmpty()){
             for (i in 0 until datos.size){
                 var pokemon = datos[i]
-                pokemon.urlImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokemon.url.getIdPokemonFromUrlApi()}.png"
-                Log.e("datos", pokemon.urlImage)
+                val idPokemon = pokemon.url.getIdPokemonFromUrlApi()
+                pokemon.urlImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${idPokemon}.png"
+                pokemon.id = idPokemon
                 datos[i] = pokemon
             }
         }else{
             datos = mutableListOf()
         }
         return datos
+    }
+
+    suspend fun getPokemonFindId(id: String): PokemonDTO? {
+        return remoteApi.getPokemonFindId(id)?.body()
     }
 
 }
