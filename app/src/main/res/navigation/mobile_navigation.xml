@@ -8,18 +8,25 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.tomdeveloper.pokeapi.home_activity.home.ui.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Pokemon"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_entrenador"
+            app:destination="@id/navigation_entrenador" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_entrenador"
         android:name="com.tomdeveloper.pokeapi.home_activity.pokemon.ui.PokemonFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
+        android:label="Entrenador"
+        tools:layout="@layout/fragment_pokemon" />
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.tomdeveloper.pokeapi.home_activity.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/detailsFragment"
+        android:name="com.tomdeveloper.pokeapi.home_activity.details.ui.DetailsFragment"
+        android:label="Detalles"
+        tools:layout="@layout/fragment_details" />
+
 </navigation>

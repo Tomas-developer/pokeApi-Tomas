@@ -4,11 +4,11 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ico_pokemon_selector"
-        android:title="@string/title_home" />
+        android:title="Pokemon" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_entrenador"
         android:icon="@drawable/ico_profile_selector"
-        android:title="@string/title_dashboard" />
+        android:title="Entrenador" />
 
 </menu>

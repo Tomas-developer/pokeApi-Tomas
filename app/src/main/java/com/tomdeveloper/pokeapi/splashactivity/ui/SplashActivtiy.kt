@@ -17,6 +17,7 @@ class SplashActivtiy: BaseActivity() {
                 super.run()
                 sleep(2000)
                 startActivity(Intent(applicationContext, HomeActivity::class.java))
+                finish()
             }
         }.start()
     }

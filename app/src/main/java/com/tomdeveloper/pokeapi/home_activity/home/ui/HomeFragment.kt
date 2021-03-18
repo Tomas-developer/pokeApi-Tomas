@@ -4,25 +4,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.tomdeveloper.pokeapi.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.tomdeveloper.data.models.PokemonDTO
+import com.tomdeveloper.pokeapi.commons.BaseFragment
+import com.tomdeveloper.pokeapi.databinding.FragmentHomeBinding
 import com.tomdeveloper.pokeapi.home_activity.home.mv.HomeViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModel()
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        return root
+
+        binding = FragmentHomeBinding.inflate(inflater)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        homeViewModel.pokemonList.observe(viewLifecycleOwner, {
+            var adapter = PokemonDtoAdapter(it as MutableList<PokemonDTO>)
+            binding.recyclerHomeFragment.layoutManager = LinearLayoutManager(activity)
+            binding.recyclerHomeFragment.adapter = adapter
+        })
+
+        homeViewModel.getPokemon()
+        /*
+        homeViewModel.getPokemon()?.let {
+            var adapter = PokemonDtoAdapter(it)
+            binding.recyclerHomeFragment.layoutManager = LinearLayoutManager(activity)
+            binding.recyclerHomeFragment.adapter = adapter
+        }
+         */
+
     }
 }
