@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 
 class DetailsViewModel(private val repository: PokemonRepository):BaseViewModel() {
 
-    private var _Pokemon: MutableLiveData<PokemonDTO> = MutableLiveData()
-    val pokemon get() = _Pokemon
+    private var _pokemon: MutableLiveData<PokemonDTO> = MutableLiveData()
+    val pokemon get() = _pokemon
 
     fun getPokemonFindId(id:String){
         viewModelScope.launch (Dispatchers.IO){

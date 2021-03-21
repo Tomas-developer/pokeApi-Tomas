@@ -1,6 +1,7 @@
 package com.tomdeveloper.pokeapi.home_activity.home.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,12 +36,16 @@ class HomeFragment : BaseFragment(), OnItemPokemonClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel.pokemonList.observe(viewLifecycleOwner, {
-            var adapter = PokemonDtoAdapter(it as MutableList<PokemonDTO>, this)
-            binding.recyclerHomeFragment.layoutManager = LinearLayoutManager(activity)
-            binding.recyclerHomeFragment.adapter = adapter
-        })
 
+        homeViewModel.pokemonList.observe(viewLifecycleOwner, {
+
+            var adapter = PokemonDtoAdapter(it, this)
+            if(it.isNotEmpty()){
+                binding.recyclerHomeFragment.layoutManager = LinearLayoutManager(activity)
+                binding.recyclerHomeFragment.adapter = adapter
+            }
+
+        })
         homeViewModel.getPokemon()
 
     }

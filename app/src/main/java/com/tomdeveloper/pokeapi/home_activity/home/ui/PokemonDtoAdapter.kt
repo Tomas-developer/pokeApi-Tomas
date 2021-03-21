@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.tomdeveloper.data.models.PokemonDTO
 import com.tomdeveloper.pokeapi.R
 
-class PokemonDtoAdapter(private val lista: MutableList<PokemonDTO>,
+class PokemonDtoAdapter(private val lista: List<PokemonDTO>,
                         private val itemPokemonClickListener: OnItemPokemonClickListener): RecyclerView.Adapter<PokemonDtoAdapter.MiViewHolder>() {
 
 
