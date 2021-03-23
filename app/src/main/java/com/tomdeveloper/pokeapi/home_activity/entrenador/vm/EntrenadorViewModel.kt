@@ -1,10 +1,10 @@
-package com.tomdeveloper.pokeapi.home_activity.pokemon.vm
+package com.tomdeveloper.pokeapi.home_activity.entrenador.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class PokemonViewModel : ViewModel() {
+class EntrenadorViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"

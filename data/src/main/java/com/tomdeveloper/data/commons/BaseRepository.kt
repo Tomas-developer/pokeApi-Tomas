@@ -1,5 +1,6 @@
 package com.tomdeveloper.data.commons
 
+import android.util.Log
 import com.tomdeveloper.data.models.PokemonDTO
 import com.tomdeveloper.data.remote.ResultHandler
 import retrofit2.HttpException
@@ -24,6 +25,7 @@ abstract class BaseRepository {
                     ResultHandler.HttpError(throwable.code(), throwable.message())
                 }
                 else -> {
+                    Log.e("errorr", throwable.message.toString())
                     ResultHandler.GenericError(throwable.message)
                 }
             }

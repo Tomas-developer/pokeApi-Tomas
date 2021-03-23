@@ -1,8 +1,10 @@
 package com.tomdeveloper.pokeapi.home_activity.details.vm
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.tomdeveloper.data.models.PokemonDTO
+import com.tomdeveloper.data.remote.ResultHandler
 import com.tomdeveloper.data.repositories.PokemonRepository
 import com.tomdeveloper.pokeapi.commons.BaseViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,9 +15,17 @@ class DetailsViewModel(private val repository: PokemonRepository):BaseViewModel(
     private var _pokemon: MutableLiveData<PokemonDTO> = MutableLiveData()
     val pokemon get() = _pokemon
 
+
     fun getPokemonFindId(id:String){
         viewModelScope.launch (Dispatchers.IO){
-            pokemon.postValue(repository.getPokemonFindId(id))
+            when(val result = repository.getPokemonFindId(id)){
+                is ResultHandler.Success -> {
+                    _pokemon.postValue(result.data)
+                }
+                else -> {
+                    showNetworkError.postValue(true)
+                }
+            }
         }
     }
 }

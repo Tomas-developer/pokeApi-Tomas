@@ -11,7 +11,6 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.w("infoapp", "Iniciando applicación")
         startKoin {
             androidContext(this@App)
             modules(listOf(uiModule, dataModule))

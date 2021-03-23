@@ -5,4 +5,5 @@ data class PokemonDTO (val name:String,
                        var urlImage:String,
                        var id:Int,
                        var height:String?,
-                       var weight:Double?)
+                       var weight:Double?,
+                       val types:List<Types>?)

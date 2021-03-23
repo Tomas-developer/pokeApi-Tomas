@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.tomdeveloper.pokeapi.home_activity.home.ui.HomeFragment"
+        android:name="com.tomdeveloper.pokeapi.home_activity.pokemon.ui.PokemonFragment"
         android:label="Pokemon"
         tools:layout="@layout/fragment_home" >
         <action
@@ -20,9 +20,9 @@
 
     <fragment
         android:id="@+id/navigation_entrenador"
-        android:name="com.tomdeveloper.pokeapi.home_activity.pokemon.ui.PokemonFragment"
+        android:name="com.tomdeveloper.pokeapi.home_activity.entrenador.ui.EntrenadorFragment"
         android:label="Entrenador"
-        tools:layout="@layout/fragment_pokemon" />
+        tools:layout="@layout/fragment_trainer" />
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.tomdeveloper.pokeapi.home_activity.details.ui.DetailsFragment"
