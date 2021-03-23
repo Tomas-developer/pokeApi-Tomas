@@ -1,14 +1,18 @@
 package com.tomdeveloper.pokeapi.home_activity.pokemon.ui
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tomdeveloper.data.models.PokemonDTO
 import com.tomdeveloper.pokeapi.R
 import com.tomdeveloper.pokeapi.commons.BaseFragment
@@ -48,6 +52,11 @@ class PokemonFragment : BaseFragment(), OnItemPokemonClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadObeservers()
+        /* cargo el fig de cargando aunque no se vea la vista ya que esta en GONE */
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.loading_pikachu)
+                .into(binding.pokemonsLoading)
         pokemonViewModel.getPokemon(offset, limit)
         linearLayoutManager = LinearLayoutManager(activity)
         binding.recyclerHomeFragment.layoutManager = linearLayoutManager
@@ -99,6 +108,15 @@ class PokemonFragment : BaseFragment(), OnItemPokemonClickListener{
                 errorDialog?.dismiss()
             }
         })
+
+        /* observer para mostrar la animacion de carga  */
+        pokemonViewModel.showLoading.observe(viewLifecycleOwner, {
+            if(it){
+                binding.pokemonsLoading.visibility = VISIBLE
+            }else{
+                binding.pokemonsLoading.visibility = GONE
+            }
+        })
     }
 
     /* NAVEGA HASTA OTRO FRAGMENT CON MAS DETALLES DEL POKEMON Y COMPARTE CON DICHO FRAGMENT EL OBJETO
@@ -109,7 +127,7 @@ class PokemonFragment : BaseFragment(), OnItemPokemonClickListener{
     }
 
 
-    // metodo para cargar los siguientes pokemon
+    // metodo para cargar los siguientes pokemon (aunque la api ya provee una url me he dado cuenta despues :/)
     fun nextStep(){
         offset += limit
     }

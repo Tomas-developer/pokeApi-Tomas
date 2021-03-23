@@ -22,9 +22,6 @@ class ErrorDialog(context: Context, var title: String, var message: String, var 
         binding.errorDialogBtn.setOnClickListener(listener)
         binding.errorDialogMessage.text = message
         binding.errorDialogTitle.text = title
-
-
-
     }
 
     override fun show() {

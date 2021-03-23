@@ -8,21 +8,30 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.tomdeveloper.pokeapi.R
 import com.tomdeveloper.pokeapi.commons.BaseFragment
+import com.tomdeveloper.pokeapi.databinding.FragmentTrainerBinding
 import com.tomdeveloper.pokeapi.home_activity.entrenador.vm.EntrenadorViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EntrenadorFragment : BaseFragment() {
 
-    private lateinit var entrenadorViewModel: EntrenadorViewModel
+    private val entrenadorViewModel: EntrenadorViewModel by viewModel()
+    private lateinit var binding: FragmentTrainerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        entrenadorViewModel =
-            ViewModelProvider(this).get(EntrenadorViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_trainer, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        return root
+
+        binding = FragmentTrainerBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.textDashboard.text = "correcto !!!!!"
+        entrenadorViewModel.pruebaGuardado()
+
     }
 }

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tomdeveloper.data.commons.Constants
 import com.tomdeveloper.pokeapi.R
@@ -52,6 +54,12 @@ class DetailsFragment : BaseFragment() {
             binding.detailsPokemonAltura.text = it.height?: "n/a"
             binding.detailsPokemonWidth.text = it.weight?.toString()?: "n/a"
             binding.detailsPokemonName.text = it.name
+            it.types?.let {
+                var adapter = PokemonTypeAdapter(it, requireContext())
+                var layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                binding.detailTypeList?.layoutManager = layoutManager
+                binding.detailTypeList?.adapter = adapter
+            }
         })
 
         detailsViewModel.showNetworkError.observe(viewLifecycleOwner, Observer {
@@ -74,5 +82,6 @@ class DetailsFragment : BaseFragment() {
             }
         })
     }
+
 
 }

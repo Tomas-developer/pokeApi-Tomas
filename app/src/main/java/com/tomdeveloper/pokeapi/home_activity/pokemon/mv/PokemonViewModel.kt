@@ -15,12 +15,17 @@ class PokemonViewModel(private val repository: PokemonRepository) : BaseViewMode
     private var _pokemonList: MutableLiveData<MutableList<PokemonDTO>> = MutableLiveData<MutableList<PokemonDTO>>()
     val pokemonList get() = _pokemonList
 
+    private var _showLoading = MutableLiveData<Boolean>()
+    val showLoading get() = _showLoading
+
     init {
         showNetworkError.value = false
+        showLoading.value = false
     }
 
     fun getPokemon(offset:Int, limit:Int) {
         viewModelScope.launch(Dispatchers.IO) {
+            _showLoading.postValue(true)
             when(val result = repository.getObjApiDTO(offset, limit)){
                 is ResultHandler.Success-> {
                     /* dado que la carga de los pokemon se hace progresivamente cada vez que el scroll
@@ -46,6 +51,7 @@ class PokemonViewModel(private val repository: PokemonRepository) : BaseViewMode
                     showNetworkError.postValue(true)
                 }
             }
+            _showLoading.postValue(false)
         }
     }
 
