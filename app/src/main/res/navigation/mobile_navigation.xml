@@ -20,13 +20,22 @@
 
     <fragment
         android:id="@+id/navigation_entrenador"
-        android:name="com.tomdeveloper.pokeapi.home_activity.entrenador.ui.EntrenadorFragment"
+        android:name="com.tomdeveloper.pokeapi.home_activity.trainerProfile.ui.TrainerFragment"
         android:label="Entrenador"
-        tools:layout="@layout/fragment_trainer" />
+        tools:layout="@layout/fragment_trainer" >
+        <action
+            android:id="@+id/action_navigation_entrenador_to_takePhotoProfileFragment"
+            app:destination="@id/takePhotoProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.tomdeveloper.pokeapi.home_activity.details.ui.DetailsFragment"
         android:label="Detalles"
         tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/takePhotoProfileFragment"
+        android:name="com.tomdeveloper.pokeapi.home_activity.trainerProfile.ui.TakePhotoProfileFragment"
+        android:label="fragment_take_photo_profile"
+        tools:layout="@layout/fragment_take_photo_profile" />
 
 </navigation>

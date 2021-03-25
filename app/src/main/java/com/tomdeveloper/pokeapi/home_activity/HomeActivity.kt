@@ -8,6 +8,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tomdeveloper.pokeapi.R
 import com.tomdeveloper.pokeapi.commons.BaseActivity
+import java.io.File
 
 class HomeActivity : BaseActivity() {
 
@@ -28,5 +29,10 @@ class HomeActivity : BaseActivity() {
         navView.setupWithNavController(navController)
     }
 
-
+    fun getOutputDirectory(): File {
+        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+            File(it, resources.getString(R.string.app_name)).apply { mkdirs() } }
+        return if (mediaDir != null && mediaDir.exists())
+            mediaDir else filesDir
+    }
 }

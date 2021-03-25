@@ -1,4 +1,4 @@
-package com.tomdeveloper.pokeapi.home_activity.entrenador.vm
+package com.tomdeveloper.pokeapi.home_activity.trainerProfile.vm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -52,7 +52,7 @@ class PokemonFragment : BaseFragment(), OnItemPokemonClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadObeservers()
-        /* cargo el fig de cargando aunque no se vea la vista ya que esta en GONE */
+        /* cargo el gif de cargando aunque no se vea la vista ya que esta en GONE */
         Glide.with(this)
                 .asGif()
                 .load(R.drawable.loading_pikachu)
@@ -62,15 +62,7 @@ class PokemonFragment : BaseFragment(), OnItemPokemonClickListener{
         binding.recyclerHomeFragment.layoutManager = linearLayoutManager
         binding.recyclerHomeFragment.scrollToPosition(positionRecycler)
         // OBTIENE MAS POKEMON CUANDO DETECTA QUE EL SCROLL HA LLEGADO AL FINAL
-        binding.recyclerHomeFragment.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                positionRecycler = linearLayoutManager.findFirstVisibleItemPosition()
-                if (!recyclerView.canScrollVertically(1)) {
-                    pokemonViewModel.getPokemon(offset, limit)
-                }
-            }
-        })
+        getMorePokemon()
 
     }
 
@@ -130,6 +122,19 @@ class PokemonFragment : BaseFragment(), OnItemPokemonClickListener{
     // metodo para cargar los siguientes pokemon (aunque la api ya provee una url me he dado cuenta despues :/)
     fun nextStep(){
         offset += limit
+    }
+
+    //obtener mas pokemon
+    private fun getMorePokemon(){
+        binding.recyclerHomeFragment.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                positionRecycler = linearLayoutManager.findFirstVisibleItemPosition()
+                if (!recyclerView.canScrollVertically(1)) {
+                    pokemonViewModel.getPokemon(offset, limit)
+                }
+            }
+        })
     }
 
 }

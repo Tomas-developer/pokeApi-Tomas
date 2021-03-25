@@ -2,11 +2,9 @@ package com.tomdeveloper.data.local
 
 import android.content.Context
 import androidx.room.Database
-import androidx.room.Entity
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.tomdeveloper.data.commons.Constants
-import com.tomdeveloper.data.commons.Constants.TABLE_NAME
+import com.tomdeveloper.data.commons.Constants.TABLE_PROFILE
 import com.tomdeveloper.data.models.ProfileDto
 
 @Database(entities = [ProfileDto::class], version = 1)
@@ -26,7 +24,7 @@ abstract class ProfileDatabase:RoomDatabase() {
                 }
 
         private fun buildDatabase(appContext: Context): ProfileDatabase{
-            return Room.databaseBuilder(appContext, ProfileDatabase::class.java, TABLE_NAME)
+            return Room.databaseBuilder(appContext, ProfileDatabase::class.java, TABLE_PROFILE)
                     .fallbackToDestructiveMigration()
                     .build()
         }
