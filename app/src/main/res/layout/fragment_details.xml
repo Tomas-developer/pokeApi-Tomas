@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".home_activity.details.ui.DetailsFragment">
 
-
     <ImageView
         android:id="@+id/details_poke_img"
         android:layout_width="0dp"
@@ -141,5 +140,17 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/button_add_favourite"
+        android:layout_width="60dp"
+        android:button="@null"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/selector_button_favourites"
+        android:checked="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

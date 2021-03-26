@@ -151,6 +151,16 @@
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/red_principal" />
+
+            <TextView
+                android:id="@+id/text_nopokemonadded_trainerfragment"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gravity="center_vertical"
+                android:text="No hay pokemon en favoritos, añádelos ! :D "
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 

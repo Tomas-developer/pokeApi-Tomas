@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +21,7 @@ import com.tomdeveloper.pokeapi.utils.SharedPokemonVm
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DetailsFragment : BaseFragment() {
+class DetailsFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
 
     private val sharedPokemonDTO: SharedPokemonVm by sharedViewModel()
     private val detailsViewModel: DetailsViewModel by viewModel()
@@ -38,13 +40,12 @@ class DetailsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         detailsViewModel.getPokemonFindId(sharedPokemonDTO.pokemon.value!!.id.toString())
-
+        binding.buttonAddFavourite.setOnCheckedChangeListener(this)
         Glide.with(view.context)
                 .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"+sharedPokemonDTO.pokemon.value!!.id+".png")
                 .thumbnail(Glide.with(this).load(R.drawable.loading))
                 .error(R.drawable.ico_no_photo)
                 .into(binding.detailsPokeImg)
-
         loadObservers()
 
     }
@@ -54,6 +55,13 @@ class DetailsFragment : BaseFragment() {
             binding.detailsPokemonAltura.text = it.height?: "n/a"
             binding.detailsPokemonWidth.text = it.weight?.toString()?: "n/a"
             binding.detailsPokemonName.text = it.name
+            if(it.favourite){
+                // le pongo el listener a null por que sino salta y me guarda, o salta el toast
+                binding.buttonAddFavourite.setOnCheckedChangeListener(null)
+                binding.buttonAddFavourite.isChecked = it.favourite
+                // vuelvo a activarle el listener
+                binding.buttonAddFavourite.setOnCheckedChangeListener(this)
+            }
             it.types?.let {
                 var adapter = PokemonTypeAdapter(it, requireContext())
                 var layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -81,6 +89,20 @@ class DetailsFragment : BaseFragment() {
                 errorDialog?.dismiss()
             }
         })
+    }
+
+    override fun onCheckedChanged(p0: CompoundButton?, ischecked: Boolean) {
+        when(p0){
+            binding.buttonAddFavourite -> {
+                if(ischecked){
+                    detailsViewModel.saveFavouritePokemonToLocalDatabase()
+                    Toast.makeText(context, "Pokemon guardado en favoritos", Toast.LENGTH_LONG).show()
+                }else{
+                    detailsViewModel.deleteFavouritePokemonToLocalDatabase()
+                    Toast.makeText(context, "Pokemon eliminado de favoritos", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
 

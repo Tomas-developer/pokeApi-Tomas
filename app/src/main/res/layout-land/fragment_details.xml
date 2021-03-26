@@ -117,4 +117,16 @@
 
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/button_add_favourite"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/selector_button_favourites"
+        android:button="@null"
+        android:checked="false"
+        app:layout_constraintEnd_toEndOf="@+id/details_poke_img"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

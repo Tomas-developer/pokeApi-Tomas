@@ -11,5 +11,5 @@ var uiModule = module {
     viewModel { PokemonViewModel( get() ) }
     viewModel { SharedPokemonVm() }
     viewModel { DetailsViewModel( get() ) }
-    viewModel { EntrenadorViewModel( get() ) }
+    viewModel { EntrenadorViewModel( get() , get() ) }
 }

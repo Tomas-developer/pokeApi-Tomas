@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.tomdeveloper.data.commons.Constants
+import com.tomdeveloper.data.local.PokemonFavouriteDatabase
 import com.tomdeveloper.data.local.ProfileDatabase
 import com.tomdeveloper.data.remote.IPokemonApi
 import com.tomdeveloper.data.repositories.ProfileRepository
@@ -35,4 +36,8 @@ fun provideGson(): Gson {
 
 fun provideProfileDatabase(application: Application): ProfileDatabase {
     return ProfileDatabase.getInstance(application)
+}
+
+fun provideFavouritesDatabase(application: Application): PokemonFavouriteDatabase {
+    return PokemonFavouriteDatabase.getInstance(application)
 }

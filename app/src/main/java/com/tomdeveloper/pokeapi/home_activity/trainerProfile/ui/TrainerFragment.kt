@@ -43,6 +43,7 @@ class TrainerFragment : BaseFragment(), View.OnClickListener {
         getPhotoUserProfile()
         loadListeners()
         loadObservers()
+        entrenadorViewModel.loadPokemonFavourites()
         entrenadorViewModel.loadProfile()
     }
 
@@ -56,6 +57,10 @@ class TrainerFragment : BaseFragment(), View.OnClickListener {
                 it.age?.let { binding.textAgeTrainerfragment.setText(it.toString()) }
             }
         })
+
+        entrenadorViewModel.pokemonFavourites.observe(viewLifecycleOwner, {
+            Log.e("llega" , it.size.toString() +" ")
+        })
     }
 
     // cargar listeners
@@ -63,7 +68,6 @@ class TrainerFragment : BaseFragment(), View.OnClickListener {
         binding.btnEditTrainerfragment.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_entrenador_to_takePhotoProfileFragment)
         }
-
         binding.btnSaveprofileTrainerfragment.setOnClickListener(this)
     }
 

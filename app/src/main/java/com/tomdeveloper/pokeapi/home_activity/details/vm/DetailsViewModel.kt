@@ -28,4 +28,22 @@ class DetailsViewModel(private val repository: PokemonRepository):BaseViewModel(
             }
         }
     }
+
+    fun saveFavouritePokemonToLocalDatabase(){
+        viewModelScope.launch(Dispatchers.IO) {
+            _pokemon.value?.let {
+                repository.saveFavouritePokemon(it)
+                Log.e("num", repository.getAllFavourites()?.size.toString() + " ")
+            }
+        }
+    }
+
+    fun deleteFavouritePokemonToLocalDatabase(){
+        viewModelScope.launch(Dispatchers.IO) {
+            _pokemon.value?.let {
+                repository.deleteFavouritePokemon(it)
+                Log.e("num", repository.getAllFavourites()?.size.toString() + " ")
+            }
+        }
+    }
 }
