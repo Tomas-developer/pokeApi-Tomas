@@ -1,29 +1,23 @@
 package com.tomdeveloper.pokeapi.home_activity.trainerProfile.ui
 
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.android.material.circularreveal.CircularRevealHelper
+import com.tomdeveloper.data.models.PokemonDTO
 import com.tomdeveloper.data.models.ProfileDto
 import com.tomdeveloper.pokeapi.R
 import com.tomdeveloper.pokeapi.commons.BaseFragment
 import com.tomdeveloper.pokeapi.databinding.FragmentTrainerBinding
 import com.tomdeveloper.pokeapi.home_activity.trainerProfile.vm.EntrenadorViewModel
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
-import java.security.Key
-import java.security.Signature
-import java.util.*
 
-class TrainerFragment : BaseFragment(), View.OnClickListener {
+class TrainerFragment : BaseFragment(), View.OnClickListener, OnItemTouch {
 
     private val entrenadorViewModel: EntrenadorViewModel by viewModel()
     private lateinit var binding: FragmentTrainerBinding
@@ -59,7 +53,18 @@ class TrainerFragment : BaseFragment(), View.OnClickListener {
         })
 
         entrenadorViewModel.pokemonFavourites.observe(viewLifecycleOwner, {
-            Log.e("llega" , it.size.toString() +" ")
+            it?.let {
+                binding.recyclerTrainerfragment.adapter = PokeFavouritesAdapter(it.toMutableList(), requireContext(), this)
+                binding.recyclerTrainerfragment.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL , false)
+                if(it.isEmpty()){
+                    binding.textNopokemonaddedTrainerfragment.visibility = View.VISIBLE
+                    binding.recyclerTrainerfragment.visibility = View.GONE
+                }else{
+                    binding.textNopokemonaddedTrainerfragment.visibility = View.GONE
+                    binding.recyclerTrainerfragment.visibility = View.VISIBLE
+                }
+            }
+
         })
     }
 
@@ -104,7 +109,7 @@ class TrainerFragment : BaseFragment(), View.OnClickListener {
                     var medals:Int? = null
                     if(!binding.textAgeTrainerfragment.text.toString().isNullOrEmpty())
                         age = binding.textAgeTrainerfragment.text.toString().toInt()
-                    if(!binding.textAgeTrainerfragment.text.toString().isNullOrEmpty())
+                    if(!binding.textNumbadgetTrainerfragment.text.toString().isNullOrEmpty())
                         medals = binding.textNumbadgetTrainerfragment.text.toString().toInt()
                     entrenadorViewModel.saveProfile(
                             ProfileDto(binding.textNameTrainerfragment.text.toString(),
@@ -117,5 +122,10 @@ class TrainerFragment : BaseFragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    override fun itemTouched(pokemonDTO: PokemonDTO) {
+        Toast.makeText(context, "Has eliminado a ${pokemonDTO.name} de favoritos.", Toast.LENGTH_LONG).show()
+        entrenadorViewModel.deletePokemonFavourite(pokemonDTO)
     }
 }

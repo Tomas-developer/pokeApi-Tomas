@@ -145,12 +145,23 @@
                 </TableRow>
             </TableLayout>
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="30dp"
+                android:background="@color/red_principal"
+                android:gravity="center_vertical"
+                android:text="Pokemons favoritos"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_trainerfragment"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/red_principal" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/text_nopokemonadded_trainerfragment"

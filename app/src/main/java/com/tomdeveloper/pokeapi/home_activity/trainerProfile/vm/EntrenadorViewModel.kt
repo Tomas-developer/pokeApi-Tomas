@@ -38,7 +38,9 @@ class EntrenadorViewModel(var profileRepository: ProfileRepository, var pokemonR
         }
     }
 
-    fun deletePokemonFavourite(){
-        
+    fun deletePokemonFavourite(pokemonDTO: PokemonDTO){
+        viewModelScope.launch(Dispatchers.IO) {
+            pokemonRepository.deleteFavouritePokemon(pokemonDTO)
+        }
     }
 }
