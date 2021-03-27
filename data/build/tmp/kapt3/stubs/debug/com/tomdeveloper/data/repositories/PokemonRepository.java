@@ -7,6 +7,9 @@ public final class PokemonRepository extends com.tomdeveloper.data.commons.BaseR
     private final com.tomdeveloper.data.remote.IPokemonApi remoteApi = null;
     private final com.tomdeveloper.data.local.PokemonFavouriteDatabase favouritesDatabase = null;
     
+    /**
+     * ************** API REMOTA
+     */
     @org.jetbrains.annotations.Nullable()
     public final java.lang.Object getObjApiDTO(int offset, int limit, @org.jetbrains.annotations.NotNull()
     kotlin.coroutines.Continuation<? super com.tomdeveloper.data.remote.ResultHandler<com.tomdeveloper.data.models.ObjApiDTO>> p2) {
@@ -20,6 +23,9 @@ public final class PokemonRepository extends com.tomdeveloper.data.commons.BaseR
         return null;
     }
     
+    /**
+     * ************** BASE DE DATOS LOCAL
+     */
     public final void saveFavouritePokemon(@org.jetbrains.annotations.NotNull()
     com.tomdeveloper.data.models.PokemonDTO pokemonDTO) {
     }
