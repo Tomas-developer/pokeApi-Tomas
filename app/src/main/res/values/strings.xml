@@ -6,4 +6,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_activity_home">MainActivity</string>
+
+    <string name="lorem">Lorem ipsum dolor sit amet consectetur adipiscing elit, posuere ut ridiculus mi dignissim malesuada, in netus euismod integer fringilla conubia. Egestas iaculis rutrum massa tempor nec non nullam, mattis lacus nunc gravida ullamcorper vitae ridiculus, nascetur nibh elementum maecenas faucibus odio. Lobortis convallis integer at lectus quis, cum iaculis conubia malesuada fermentum varius, magna netus phasellus sed. Magnis augue nostra interdum pretium tellus risus odio curae sollicitudin, maecenas nullam vulputate gravida eu faucibus imperdiet.
+                        Turpis odio nunc cras fringilla dignissim nibh rhoncus curae, congue leo cum primis mi euismod sed eros mauris, per neque montes dictum bibendum sociis class. Suscipit per mattis vitae ligula in fermentum congue nibh, vehicula molestie imperdiet tempus at non metus sodales lectus, netus vulputate sed hac commodo purus et. A ullamcorper ut felis porta justo hac aenean varius eleifend primis, facilisis eros fringilla praesent velit luctus cras auctor rhoncus vivamus pretium, urna parturient inceptos curabitur ante quam aliquet interdum proin.
+    </string>
 </resources>
