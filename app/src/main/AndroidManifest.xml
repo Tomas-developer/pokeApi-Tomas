@@ -17,6 +17,7 @@
             android:name=".home_activity.HomeActivity"
             android:label="@string/title_activity_home"></activity>
         <activity android:name=".splashactivity.ui.SplashActivtiy"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

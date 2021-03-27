@@ -24,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import com.tomdeveloper.pokeapi.R
 import com.tomdeveloper.pokeapi.commons.BaseFragment
 import com.tomdeveloper.pokeapi.databinding.FragmentTakePhotoProfileBinding
+import com.tomdeveloper.pokeapi.home_activity.HomeActivity
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,16 +51,10 @@ class TakePhotoProfileFragment : BaseFragment() {
         btntakepicture = view.findViewById(R.id.btn_takephoto_takephotofragment)
         cameraExecutor = Executors.newSingleThreadExecutor()
         outputDirectory = getOutputDirectory()
-        if (allPermissionsGranted()) {
-            startCamera()
-            btntakepicture.setOnClickListener {
-                takePhoto()
-            }
-        } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+        startCamera()
+        btntakepicture.setOnClickListener {
+            takePhoto()
         }
-
     }
 
 
@@ -82,13 +77,13 @@ class TakePhotoProfileFragment : BaseFragment() {
         imageCapture.takePicture(
             outputOptions, ContextCompat.getMainExecutor(context), object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                    Log.e(TAG, "Error al capturar la foto: ${exc.message}", exc)
                     back()
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
-                    val msg = "Photo capture succeeded: $savedUri"
+                    val msg = "Foto guardada: ${savedUri.path}"
                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
                     back()
@@ -133,8 +128,6 @@ class TakePhotoProfileFragment : BaseFragment() {
 
     }
 
-
-
     // mata al hilo de la camara al destruirse el fragment
     override fun onDestroy() {
         super.onDestroy()
@@ -143,28 +136,6 @@ class TakePhotoProfileFragment : BaseFragment() {
 
     companion object {
         private const val TAG = "CameraXBasic"
-        private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults:
-        IntArray) {
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                Toast.makeText(context,
-                    "Debes conceder permisos para usar la cámara.",
-                    Toast.LENGTH_SHORT).show()
-                back()
-            }
-        }
-    }
-
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(
-            requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun back(){
@@ -173,6 +144,7 @@ class TakePhotoProfileFragment : BaseFragment() {
         requireActivity().onBackPressed()
     }
 
+    // obtengo el directorio raiz de mi app, si no exite se crea
     private fun getOutputDirectory(): File {
         val mediaDir = requireActivity().externalMediaDirs.firstOrNull()?.let {
             File(it, resources.getString(R.string.app_name)).apply { mkdirs() } }

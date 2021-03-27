@@ -1,10 +1,12 @@
 package com.tomdeveloper.pokeapi.home_activity.trainerProfile.ui
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -13,6 +15,7 @@ import com.tomdeveloper.data.models.ProfileDto
 import com.tomdeveloper.pokeapi.R
 import com.tomdeveloper.pokeapi.commons.BaseFragment
 import com.tomdeveloper.pokeapi.databinding.FragmentTrainerBinding
+import com.tomdeveloper.pokeapi.home_activity.HomeActivity
 import com.tomdeveloper.pokeapi.home_activity.trainerProfile.vm.EntrenadorViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
@@ -71,7 +74,15 @@ class TrainerFragment : BaseFragment(), View.OnClickListener, OnItemTouch {
     // cargar listeners
     private fun loadListeners(){
         binding.btnEditTrainerfragment.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_entrenador_to_takePhotoProfileFragment)
+            /* si el permiso de la camara esta concedido le dejo al usuario navegar al fragment
+            de la camara y si no le pido permisos
+             */
+            if(checkPermission()){
+                findNavController().navigate(R.id.action_navigation_entrenador_to_takePhotoProfileFragment)
+            }else{
+                activity?.requestPermissions(HomeActivity.REQUIRED_PERMISSIONS, HomeActivity.REQUEST_CODE_PERMISSIONS)
+            }
+
         }
         binding.btnSaveprofileTrainerfragment.setOnClickListener(this)
     }
@@ -127,5 +138,10 @@ class TrainerFragment : BaseFragment(), View.OnClickListener, OnItemTouch {
     override fun itemTouched(pokemonDTO: PokemonDTO) {
         Toast.makeText(context, "Has eliminado a ${pokemonDTO.name} de favoritos.", Toast.LENGTH_LONG).show()
         entrenadorViewModel.deletePokemonFavourite(pokemonDTO)
+    }
+
+    private fun checkPermission(): Boolean{
+        return ContextCompat
+                .checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
     }
 }
