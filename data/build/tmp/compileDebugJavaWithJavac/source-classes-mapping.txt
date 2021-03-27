@@ -1,0 +1,16 @@
+com/tomdeveloper/data/local/ProfileDatabase_Impl.java
+ com.tomdeveloper.data.local.ProfileDatabase_Impl
+ com.tomdeveloper.data.local.ProfileDatabase_Impl$1
+com/tomdeveloper/data/local/ProfileDao_Impl.java
+ com.tomdeveloper.data.local.ProfileDao_Impl
+ com.tomdeveloper.data.local.ProfileDao_Impl$1
+ com.tomdeveloper.data.local.ProfileDao_Impl$2
+com/tomdeveloper/data/BuildConfig.java
+ com.tomdeveloper.data.BuildConfig
+com/tomdeveloper/data/local/PokemonFavouriteDatabase_Impl.java
+ com.tomdeveloper.data.local.PokemonFavouriteDatabase_Impl
+ com.tomdeveloper.data.local.PokemonFavouriteDatabase_Impl$1
+com/tomdeveloper/data/local/PokemonFavouritesDao_Impl.java
+ com.tomdeveloper.data.local.PokemonFavouritesDao_Impl
+ com.tomdeveloper.data.local.PokemonFavouritesDao_Impl$1
+ com.tomdeveloper.data.local.PokemonFavouritesDao_Impl$2
