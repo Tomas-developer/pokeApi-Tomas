@@ -18,18 +18,21 @@ class EntrenadorViewModel(var profileRepository: ProfileRepository, var pokemonR
     private var _pokemonFavourites: MutableLiveData<List<PokemonDTO>> = MutableLiveData()
     val pokemonFavourites get() = _pokemonFavourites
 
+    // guarda el perfil
     fun saveProfile(dto: ProfileDto){
         viewModelScope.launch(Dispatchers.IO) {
             profileRepository.saveProfile(dto)
         }
     }
 
+    // carga el perfil
     fun loadProfile(){
         viewModelScope.launch(Dispatchers.IO) {
             _profile.postValue(profileRepository.loadProfile())
         }
     }
 
+    // carga los pokemon favoritos de la bd local
     fun loadPokemonFavourites(){
         viewModelScope.launch(Dispatchers.IO) {
             pokemonRepository.getAllFavourites().let {
@@ -38,6 +41,7 @@ class EntrenadorViewModel(var profileRepository: ProfileRepository, var pokemonR
         }
     }
 
+    // elimina el pokemon favorito de la bd local
     fun deletePokemonFavourite(pokemonDTO: PokemonDTO){
         viewModelScope.launch(Dispatchers.IO) {
             pokemonRepository.deleteFavouritePokemon(pokemonDTO)

@@ -55,6 +55,7 @@ class TrainerFragment : BaseFragment(), View.OnClickListener, OnItemTouch {
             }
         })
 
+        // obtiene los pokemon de la bd local que ha anadido a favoritos
         entrenadorViewModel.pokemonFavourites.observe(viewLifecycleOwner, {
             it?.let {
                 binding.recyclerTrainerfragment.adapter = PokeFavouritesAdapter(it.toMutableList(), requireContext(), this)
@@ -118,6 +119,7 @@ class TrainerFragment : BaseFragment(), View.OnClickListener, OnItemTouch {
                 }else{
                     var age:Int? = null
                     var medals:Int? = null
+                    // compruebo que no sean nulos ni vacios ya que si no al convertir a entero falla
                     if(!binding.textAgeTrainerfragment.text.toString().isNullOrEmpty())
                         age = binding.textAgeTrainerfragment.text.toString().toInt()
                     if(!binding.textNumbadgetTrainerfragment.text.toString().isNullOrEmpty())
@@ -135,11 +137,13 @@ class TrainerFragment : BaseFragment(), View.OnClickListener, OnItemTouch {
         }
     }
 
+    // elimina el pokemon
     override fun itemTouched(pokemonDTO: PokemonDTO) {
         Toast.makeText(context, "Has eliminado a ${pokemonDTO.name} de favoritos.", Toast.LENGTH_LONG).show()
         entrenadorViewModel.deletePokemonFavourite(pokemonDTO)
     }
 
+    // comprueba los permisos de la camara
     private fun checkPermission(): Boolean{
         return ContextCompat
                 .checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED

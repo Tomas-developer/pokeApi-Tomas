@@ -39,7 +39,10 @@ class DetailsFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // obtiene el pokemon de la api remota
         detailsViewModel.getPokemonFindId(sharedPokemonDTO.pokemon.value!!.id.toString())
+
+        // listener para detectar el checkbox
         binding.buttonAddFavourite.setOnCheckedChangeListener(this)
         Glide.with(view.context)
                 .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"+sharedPokemonDTO.pokemon.value!!.id+".png")
@@ -50,6 +53,7 @@ class DetailsFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
 
     }
 
+    // carga os observers
     private fun loadObservers() {
         detailsViewModel.pokemon.observe(viewLifecycleOwner, {
             binding.detailsPokemonAltura.text = it.height?: "n/a"
@@ -70,6 +74,7 @@ class DetailsFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
             }
         })
 
+        // muestra dialogo de error en caso de que falle la carga
         detailsViewModel.showNetworkError.observe(viewLifecycleOwner, Observer {
             if(it){
                 errorDialog = activity?.let { activity ->
@@ -94,6 +99,7 @@ class DetailsFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
     override fun onCheckedChanged(p0: CompoundButton?, ischecked: Boolean) {
         when(p0){
             binding.buttonAddFavourite -> {
+                // al darle al checkbox borra o anade el pokemon de la bd local
                 if(ischecked){
                     detailsViewModel.saveFavouritePokemonToLocalDatabase()
                     Toast.makeText(context, "Pokemon guardado en favoritos", Toast.LENGTH_LONG).show()

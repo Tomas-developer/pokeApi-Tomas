@@ -3,6 +3,7 @@ package com.tomdeveloper.data.repositories
 import com.tomdeveloper.data.local.ProfileDatabase
 import com.tomdeveloper.data.models.ProfileDto
 
+/* REPOSITORIO LOCAL DEL PERFIL */
 class ProfileRepository(val profileDataBase: ProfileDatabase) {
 
 
@@ -18,8 +19,5 @@ class ProfileRepository(val profileDataBase: ProfileDatabase) {
         return profileDataBase.profileDao().getAll()
     }
 
-    fun deleteAll(){
-        profileDataBase.profileDao().deleteAll()
-    }
 
 }

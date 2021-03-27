@@ -19,7 +19,9 @@ class PokemonViewModel(private val repository: PokemonRepository) : BaseViewMode
     val showLoading get() = _showLoading
 
     init {
+        // para mostrar el dialogo en caso de error
         showNetworkError.value = false
+        // para mostrar el gif de cargando
         showLoading.value = false
     }
 

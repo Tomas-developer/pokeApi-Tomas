@@ -12,6 +12,7 @@ import com.tomdeveloper.data.models.PokemonDTO
 import com.tomdeveloper.pokeapi.R
 import de.hdodenhof.circleimageview.CircleImageView
 
+// adaptador para mostrar pokemons favoritos en el recycler
 class PokeFavouritesAdapter(private var list: MutableList<PokemonDTO>,
                             private var context: Context,
                             private var onItemTouch: OnItemTouch): RecyclerView.Adapter<PokeFavouritesAdapter.MyView>() {

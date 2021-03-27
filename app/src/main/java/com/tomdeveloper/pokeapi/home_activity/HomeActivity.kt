@@ -12,8 +12,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tomdeveloper.pokeapi.R
 import com.tomdeveloper.pokeapi.commons.BaseActivity
-import com.tomdeveloper.pokeapi.home_activity.trainerProfile.ui.TakePhotoProfileFragment
-import java.io.File
 
 class HomeActivity : BaseActivity() {
 
@@ -39,6 +37,7 @@ class HomeActivity : BaseActivity() {
         navView.setupWithNavController(navController)
     }
 
+    // compruebo resultados de los permisos en el activity principal
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {

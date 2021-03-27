@@ -1,12 +1,8 @@
 package com.tomdeveloper.pokeapi.home_activity.trainerProfile.ui
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.os.health.UidHealthStats
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +14,10 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
 import com.tomdeveloper.pokeapi.R
 import com.tomdeveloper.pokeapi.commons.BaseFragment
-import com.tomdeveloper.pokeapi.databinding.FragmentTakePhotoProfileBinding
-import com.tomdeveloper.pokeapi.home_activity.HomeActivity
 import java.io.File
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -49,9 +40,13 @@ class TakePhotoProfileFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewFinder = view.findViewById(R.id.preView)
         btntakepicture = view.findViewById(R.id.btn_takephoto_takephotofragment)
+        // hilo de la camara (destruido al cerrar el fragment)
         cameraExecutor = Executors.newSingleThreadExecutor()
+        // obtiene/crea el directorio donde se almacenara la foto
         outputDirectory = getOutputDirectory()
+        // abre la camara y previsualiza lo que capta
         startCamera()
+        // listener para capturar la foto
         btntakepicture.setOnClickListener {
             takePhoto()
         }
@@ -108,7 +103,7 @@ class TakePhotoProfileFragment : BaseFragment() {
             imageCapture = ImageCapture.Builder()
                 .build()
 
-            // Select back camera as a default
+            // Dado que es un selfie activo la camara delantera por defecto (no he dado posibilidad de cambiar)
             val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
 
             try {
@@ -128,12 +123,13 @@ class TakePhotoProfileFragment : BaseFragment() {
 
     }
 
-    // mata al hilo de la camara al destruirse el fragment
+    // mata al hilo de la camara al destruirse el fragment (importante sino da error y se sale de la app)
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
     }
 
+    // solo muestra el log si hay error
     companion object {
         private const val TAG = "CameraXBasic"
     }

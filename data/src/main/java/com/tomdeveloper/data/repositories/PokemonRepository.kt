@@ -1,18 +1,17 @@
 package com.tomdeveloper.data.repositories
 
-import android.util.Log
 import com.tomdeveloper.data.commons.BaseRepository
 import com.tomdeveloper.data.commons.Constants
 import com.tomdeveloper.data.commons.getIdPokemonFromUrlApi
 import com.tomdeveloper.data.local.PokemonFavouriteDatabase
 import com.tomdeveloper.data.models.ObjApiDTO
 import com.tomdeveloper.data.models.PokemonDTO
-import com.tomdeveloper.data.models.Type
-import com.tomdeveloper.data.models.Types
 import com.tomdeveloper.data.remote.IPokemonApi
 import com.tomdeveloper.data.remote.ResultHandler
 
 class PokemonRepository(private val remoteApi: IPokemonApi, private val favouritesDatabase: PokemonFavouriteDatabase) :BaseRepository(){
+
+    /**************** API REMOTA **********************/
 
     suspend fun getObjApiDTO(offset:Int, limit:Int): ResultHandler<ObjApiDTO> {
         return when (val result = safeApiCall(call = { remoteApi.getPokemons("pokemon",offset, limit) })) {
@@ -52,6 +51,8 @@ class PokemonRepository(private val remoteApi: IPokemonApi, private val favourit
             is ResultHandler.NetworkError -> result
         }
     }
+
+    /**************** BASE DE DATOS LOCAL **********************/
 
    fun saveFavouritePokemon(pokemonDTO: PokemonDTO){
         favouritesDatabase.pokemonFavouriteDao().savePokemonFavourite(pokemonDTO)

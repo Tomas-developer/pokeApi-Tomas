@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.tomdeveloper.data.models.Types
 
+// converters para que room pueda guardar objetos de tipos no primitivos
 class Converters {
 
     @TypeConverter
